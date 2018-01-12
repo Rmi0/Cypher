@@ -45,9 +45,10 @@ public class Encryptor {
                 lines.add(line);
                 continue;
             }
-            line = decryptBinart(line);
+            line = decryptBinary(line);
             line = new StringBuilder(line).reverse().toString();
             line = flipPairs(line);
+            lines.add(line);
         }
         return lines;
     }
@@ -62,11 +63,11 @@ public class Encryptor {
         return new String(charLine);
     }
 
-    private String encryptBinary(String line) {
+    public String encryptBinary(String line) {
         char[] charLine = line.toCharArray();
-        for (int i = 1; i < line.length(); i++) {
+        for (int i = 0; i < line.length(); i++) {
             char c = charLine[i];
-            int left = c & 245;
+            int left = c & 240;
             int right = c & 15;
             left=left>>4;
             right = right<<4;
@@ -76,14 +77,14 @@ public class Encryptor {
         return new String(charLine);
     }
 
-    private String decryptBinart(String line) {
+    public String decryptBinary(String line) {
         char[] charLine = line.toCharArray();
-        for (int i = 1; i < line.length(); i++) {
+        for (int i = 0; i < line.length(); i++) {
             char c = charLine[i];
-            int left = c & 245;
+            int left = c & 240;
             int right = c & 15;
-            left=left<<4;
-            right = right>>4;
+            left=left>>4;
+            right = right<<4;
             c=(char)(left+right);
             charLine[i] = c;
         }
